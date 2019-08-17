@@ -27,10 +27,10 @@ interface ImageResizerInterface
     public const HEIGHT = 150;
 
     /**
-     * @param string $image
+     * @param string $path
      * @param int $width
      * @param int $height
-     * @return string
+     * @return string|null
      */
-    public function resize(string $image, int $width, int $height): string;
+    public function resize(string $path, int $width, int $height): ?string;
 }
