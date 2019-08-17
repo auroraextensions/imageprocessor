@@ -1,0 +1,24 @@
+{
+  "name": "auroraextensions/imageresizer",
+  "description": "Crop, resize, and scale images in Magento.",
+  "type": "magento2-module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nickolas Burr",
+      "email": "nickolasburr@auroraextensions.com"
+    }
+  ],
+  "support": {
+    "email": "support@auroraextensions.com"
+  },
+  "require": {
+    "php": ">=7.1",
+    "magento/framework": "102.*.*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ]
+  }
+}
