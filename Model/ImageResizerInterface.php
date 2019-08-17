@@ -20,11 +20,11 @@ namespace AuroraExtensions\ImageResizer\Model;
 
 interface ImageResizerInterface
 {
-    /** @constant int DEFAULT_WIDTH */
-    public const DEFAULT_WIDTH = 150;
+    /** @constant int WIDTH */
+    public const WIDTH = 150;
 
-    /** @constant int DEFAULT_HEIGHT */
-    public const DEFAULT_HEIGHT = 150;
+    /** @constant int HEIGHT */
+    public const HEIGHT = 150;
 
     /**
      * @param string $image
