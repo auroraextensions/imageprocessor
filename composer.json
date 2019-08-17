@@ -15,7 +15,8 @@
   "require": {
     "php": ">=7.1",
     "ext-gd": "*",
-    "magento/framework": "102.*.*"
+    "magento/framework": "102.*.*",
+    "magento/module-store": "101.*.*"
   },
   "autoload": {
     "files": [
