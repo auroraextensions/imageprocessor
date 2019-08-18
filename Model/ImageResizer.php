@@ -164,6 +164,9 @@ class ImageResizer implements ImageResizerInterface
             return null;
         }
 
-        return $relativeResizedFile;
+        /** @var string $resizedFilePath */
+        $resizedFilePath = '/' . ltrim($relativeResizedFile, '/');
+
+        return $resizedFilePath;
     }
 }
