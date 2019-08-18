@@ -164,6 +164,6 @@ class ImageResizer implements ImageResizerInterface
             return null;
         }
 
-        return $resizedFile;
+        return $relativeResizedFile;
     }
 }
