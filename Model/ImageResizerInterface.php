@@ -20,6 +20,9 @@ namespace AuroraExtensions\ImageResizer\Model;
 
 interface ImageResizerInterface
 {
+    /** @constant string MEDIA_PATH */
+    public const MEDIA_PATH = '/resized/';
+
     /** @constant int WIDTH */
     public const WIDTH = 150;
 

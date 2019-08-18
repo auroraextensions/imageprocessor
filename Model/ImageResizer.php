@@ -53,7 +53,7 @@ class ImageResizer implements ImageResizerInterface
         Filesystem $filesystem,
         AdapterFactory $imageFactory,
         StoreManagerInterface $storeManager,
-        string $subdirectory = 'resized'
+        string $subdirectory = self::MEDIA_PATH
     ) {
         $this->filesystem = $filesystem;
         $this->imageFactory = $imageFactory;
@@ -93,7 +93,7 @@ class ImageResizer implements ImageResizerInterface
         $h = (string) $height;
 
         /** @var string $savePath */
-        $savePath = rtrim($this->subdirectory, '/') . '/' . $w . 'x' . $h;
+        $savePath = trim($this->subdirectory, '/') . '/' . $w . 'x' . $h;
 
         return $this->getMediaReader()
             ->getAbsolutePath($savePath);
