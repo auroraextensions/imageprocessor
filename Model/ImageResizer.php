@@ -116,8 +116,8 @@ class ImageResizer implements ImageResizerInterface
      */
     public function resize(
         string $path,
-        int $width = static::WIDTH,
-        int $height = static::HEIGHT
+        int $width = self::WIDTH,
+        int $height = self::HEIGHT
     ): ?string
     {
         /** @var ReadInterface $mediaReader */
