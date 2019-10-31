@@ -16,9 +16,9 @@
  */
 declare(strict_types=1);
 
-namespace AuroraExtensions\ImageResizer\Api;
+namespace AuroraExtensions\ImageProcessor\Api;
 
-interface ImageResizerInterface
+interface ImageManagementInterface
 {
     /** @constant string MEDIA_PATH */
     public const MEDIA_PATH = '/resized/';
