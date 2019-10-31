@@ -9,13 +9,13 @@
  * is bundled with this package in the file LICENSE.txt.
  *
  * It is also available on the Internet at the following URL:
- * https://docs.auroraextensions.com/magento/extensions/2.x/imageresizer/LICENSE.txt
+ * https://docs.auroraextensions.com/magento/extensions/2.x/imageprocessor/LICENSE.txt
  *
- * @package       AuroraExtensions_ImageResizer
+ * @package       AuroraExtensions_ImageProcessor
  * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
  * @license       MIT License
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="AuroraExtensions\ImageResizer\Model\ImageResizerInterface" type="AuroraExtensions\ImageResizer\Model\ImageResizer"/>
+    <preference for="AuroraExtensions\ImageProcessor\Api\ImageManagementInterface" type="AuroraExtensions\ImageProcessor\Model\ImageProcessor"/>
 </config>

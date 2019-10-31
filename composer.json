@@ -1,5 +1,5 @@
 {
-  "name": "auroraextensions/imageresizer",
+  "name": "auroraextensions/imageprocessor",
   "description": "Crop, resize, and scale images in Magento.",
   "type": "magento2-module",
   "license": "MIT",
@@ -23,7 +23,7 @@
       "registration.php"
     ],
     "psr-4": {
-      "AuroraExtensions\\ImageResizer\\": ""
+      "AuroraExtensions\\ImageProcessor\\": ""
     }
   }
 }
