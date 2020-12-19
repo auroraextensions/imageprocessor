@@ -1,9 +1,29 @@
-# AuroraExtensions\_ImageProcessor
+Image Processor
+===============
+
+.. contents::
+    :local:
+
+Description
+-----------
 
 Crop, resize, and scale images in Magento.
 
-## Installation
+Installation
+------------
 
-```
-composer require auroraextensions/imageprocessor
-```
+.. code-block:: sh
+
+    composer require auroraextensions/imageprocessor
+
+Usage
+-----
+
+.. code-block:: php
+
+   ...
+
+   /** @var string $thumbnail */
+   $thumbnail = $this->imageProcessor->resize($imagePath);
+
+   ...
