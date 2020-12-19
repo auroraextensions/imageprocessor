@@ -27,11 +27,11 @@ use Magento\Framework\{
     Image\AdapterFactory,
     UrlInterface
 };
-use Magento\Store\Model\StoreManagerInterface;
 
 use const DIRECTORY_SEPARATOR;
 use function basename;
 use function implode;
+use function ltrim;
 use function trim;
 
 class ImageProcessor implements ImageManagementInterface
@@ -42,28 +42,22 @@ class ImageProcessor implements ImageManagementInterface
     /** @var AdapterFactory $imageFactory */
     private $imageFactory;
 
-    /** @var StoreManagerInterface $storeManager */
-    private $storeManager;
-
     /** @var string $subdirectory */
     private $subdirectory;
 
     /**
      * @param Filesystem $filesystem
      * @param AdapterFactory $imageFactory
-     * @param StoreManagerInterface $storeManager
      * @param string $subdirectory
      * @return void
      */
     public function __construct(
         Filesystem $filesystem,
         AdapterFactory $imageFactory,
-        StoreManagerInterface $storeManager,
         string $subdirectory = self::MEDIA_PATH
     ) {
         $this->filesystem = $filesystem;
         $this->imageFactory = $imageFactory;
-        $this->storeManager = $storeManager;
         $this->subdirectory = $subdirectory;
     }
 
