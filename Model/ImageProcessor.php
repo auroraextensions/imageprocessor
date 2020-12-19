@@ -29,19 +29,24 @@ use Magento\Framework\{
 };
 use Magento\Store\Model\StoreManagerInterface;
 
+use const DIRECTORY_SEPARATOR;
+use function basename;
+use function implode;
+use function trim;
+
 class ImageProcessor implements ImageManagementInterface
 {
-    /** @property Filesystem $filesystem */
-    protected $filesystem;
+    /** @var Filesystem $filesystem */
+    private $filesystem;
 
-    /** @property AdapterFactory $imageFactory */
-    protected $imageFactory;
+    /** @var AdapterFactory $imageFactory */
+    private $imageFactory;
 
-    /** @property StoreManagerInterface $storeManager */
-    protected $storeManager;
+    /** @var StoreManagerInterface $storeManager */
+    private $storeManager;
 
-    /** @property string $subdirectory */
-    protected $subdirectory;
+    /** @var string $subdirectory */
+    private $subdirectory;
 
     /**
      * @param Filesystem $filesystem
@@ -63,29 +68,11 @@ class ImageProcessor implements ImageManagementInterface
     }
 
     /**
-     * @return ReadInterface
-     */
-    public function getMediaReader(): ReadInterface
-    {
-        return $this->filesystem
-            ->getDirectoryRead(DirectoryList::MEDIA);
-    }
-
-    /**
-     * @return WriteInterface
-     */
-    public function getMediaWriter(): WriteInterface
-    {
-        return $this->filesystem
-            ->getDirectoryWrite(DirectoryList::MEDIA);
-    }
-
-    /**
      * @param int $width
      * @param int $height
      * @return string
      */
-    public function getResizedMediaPath(int $width, int $height): string
+    private function getResizedMediaPath(int $width, int $height): string
     {
         /** @var string $w */
         $w = (string) $width;
@@ -93,27 +80,21 @@ class ImageProcessor implements ImageManagementInterface
         /** @var string $h */
         $h = (string) $height;
 
+        /** @var ReadInterface $reader */
+        $reader = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+
         /** @var string $savePath */
-        $savePath = trim($this->subdirectory, '/') . '/' . $w . 'x' . $h;
-
-        return $this->getMediaReader()
-            ->getAbsolutePath($savePath);
+        $savePath = implode(DIRECTORY_SEPARATOR, [
+            trim($this->subdirectory, DIRECTORY_SEPARATOR),
+            $w,
+            'x',
+            $h,
+        ]);
+        return $reader->getAbsolutePath($savePath);
     }
 
     /**
-     * @param string $filePath
-     * @return string|null
-     */
-    public function getFilename(string $filePath): ?string
-    {
-        return basename($filePath);
-    }
-
-    /**
-     * @param string $path Image path, relative to media base.
-     * @param int $width
-     * @param int $height
-     * @return string|null
+     * {@inheritdoc}
      */
     public function resize(
         string $path,
@@ -121,16 +102,16 @@ class ImageProcessor implements ImageManagementInterface
         int $height = self::HEIGHT
     ): ?string
     {
-        /** @var ReadInterface $mediaReader */
-        $mediaReader = $this->getMediaReader();
+        /** @var ReadInterface $reader */
+        $reader = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
 
-        /** @var WriteInterface $mediaWriter */
-        $mediaWriter = $this->getMediaWriter();
+        /** @var WriteInterface $writer */
+        $writer = $this->filesystem->getDirectoryWrite(DirectoryList::MEDIA);
 
         /** @var string $filePath */
-        $filePath = $mediaReader->getAbsolutePath($path);
+        $filePath = $reader->getAbsolutePath($path);
 
-        if (!$mediaReader->isFile($filePath)) {
+        if (!$reader->isFile($filePath)) {
             return null;
         }
 
@@ -138,13 +119,13 @@ class ImageProcessor implements ImageManagementInterface
         $resizedMediaPath = $this->getResizedMediaPath($width, $height);
 
         /** @var string $relativeMediaPath */
-        $relativeMediaPath = $mediaReader->getRelativePath($resizedMediaPath);
+        $relativeMediaPath = $reader->getRelativePath($resizedMediaPath);
 
-        if (!$mediaReader->isDirectory($relativeMediaPath)) {
-            $mediaWriter->create($resizedMediaPath);
+        if (!$reader->isDirectory($relativeMediaPath)) {
+            $writer->create($resizedMediaPath);
         }
 
-        if (!$mediaReader->isDirectory($relativeMediaPath)) {
+        if (!$reader->isDirectory($relativeMediaPath)) {
             return null;
         }
 
@@ -155,19 +136,24 @@ class ImageProcessor implements ImageManagementInterface
         $image->resize($width, $height);
 
         /** @var string $resizedFile */
-        $resizedFile = $resizedMediaPath . '/' . $this->getFilename($filePath);
+        $resizedFile = implode(DIRECTORY_SEPARATOR, [
+            $resizedMediaPath,
+            basename($filePath),
+        ]);
         $image->save($resizedFile);
 
         /** @var string $relativeResizedFile */
-        $relativeResizedFile = $mediaReader->getRelativePath($resizedFile);
+        $relativeResizedFile = $reader->getRelativePath($resizedFile);
 
-        if (!$mediaReader->isFile($relativeResizedFile)) {
+        if (!$reader->isFile($relativeResizedFile)) {
             return null;
         }
 
         /** @var string $resizedFilePath */
-        $resizedFilePath = '/' . ltrim($relativeResizedFile, '/');
-
+        $resizedFilePath = implode(DIRECTORY_SEPARATOR, [
+            '',
+            ltrim($relativeResizedFile, DIRECTORY_SEPARATOR),
+        ]);
         return $resizedFilePath;
     }
 }
