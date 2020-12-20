@@ -24,8 +24,7 @@ use Magento\Framework\{
     Filesystem,
     Filesystem\Directory\ReadInterface,
     Filesystem\Directory\WriteInterface,
-    Image\AdapterFactory,
-    UrlInterface
+    Image\AdapterFactory
 };
 
 use const DIRECTORY_SEPARATOR;
