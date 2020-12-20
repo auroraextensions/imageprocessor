@@ -7,7 +7,7 @@ Image Processor
 Description
 -----------
 
-Crop, resize, and scale images in Magento.
+Pluggable, extensible module to crop, resize, and scale images in Magento.
 
 Installation
 ------------
